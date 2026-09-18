@@ -86,9 +86,11 @@ happen over Bluetooth) there's nothing to match. In those cases *Advanced settin
 and the message explains what to choose. A manually made choice is **never** overwritten by the automatic
 logic.
 
-The **Emulate** menu — inside *Advanced settings* — sets itself automatically based on the connected
-controller: **DualSense** for Sony pads, **Xbox 360 (XInput)** for all others. Choosing manually, the app
-stops deciding for you.
+The **Emulate** menu — inside *Advanced settings* — chooses what type of controller games will see. It is
+**Xbox 360 (XInput)** by default for every controller, PlayStation ones included: games understand it best (DS4Windows
+does the same), and it avoids problems like Rocket League ignoring a DualSense. If you'd rather have the PlayStation
+button symbols in games that support them, choose **DualSense**. Your choice is remembered for each controller, so you
+don't have to pick it again next time.
 
 **To apply dead zones to games (Windows):**
 
@@ -228,9 +230,9 @@ still adjust the dead zone live while it's on.
   and nothing is switched on.
 - With a PlayStation controller, the very first time you have to press **Enable dead zone** yourself: reading the
   pad directly needs a permission granted with a click. From the next launch on, the automatic start works.
-- A game that starts while the dead zone is already on may not receive any input (seen in Rocket League). With this
-  option that is the normal case, because the dead zone is on before you open the game. If it happens, just restart
-  the game.
+- The virtual controller is an Xbox 360 pad by default, which games handle best, so it works even when the game
+  opens with the dead zone already on. If you switch **Emulate** to *DualSense*, a game that doesn't know it (Rocket
+  League) may ignore it.
 
 **Updates.** At every start CTRLSuite looks online for a newer version (untick *Check for updates at startup* to stop
 that; *Check for updates now* looks on demand). That is the only network connection it makes, and it sends no personal
