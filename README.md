@@ -1,7 +1,7 @@
 # CTRLSuite
 
 Standalone desktop app (Electron, macOS and Windows) that gives you the same control over your controller
-that is usually reserved for drivers: dead zones, LEDs, calibration, polling rate.
+that is usually reserved for drivers: deadzones, LEDs, calibration, polling rate.
 
 ## Installing
 
@@ -19,13 +19,13 @@ to the other, or update, without losing them.
 > **More info → Run anyway**.
 
 > **CTRLSuite asks for administrator permission every time it opens** (a Windows permission prompt). Accept it:
-> HidHide and HIDMaestro (the virtual controller driver), which apply the dead zone to games, both need it.
+> HidHide and HIDMaestro (the virtual controller driver), which apply the deadzone to games, both need it.
 
 ## What you need to download separately
 
 Two features depend on third-party tools you install once:
 
-**[HidHide](https://github.com/nefarius/HidHide/releases)** is required to apply dead zones to games.
+**[HidHide](https://github.com/nefarius/HidHide/releases)** is required to apply deadzones to games.
 It hides the physical controller from all other apps so games only see the corrected virtual one.
 Requires a restart after install.
 
@@ -42,24 +42,24 @@ As soon as the controller responds, the screen disappears. After **2 seconds**, 
 controller* also appears — the app works fully without one (sticks can be simulated by dragging inside the
 stick map with the mouse, and themes, licenses, and overclock don't need a controller).
 
-If you turn on **Enable the deadzone at startup** in *Customize*, this is also the moment the dead zone switches on
-by itself — once the controller has responded, never if you choose *Continue without controller*.
+If you turn on **Enable the deadzone at startup** in *Customize*, this is also the moment the deadzone switches on
+by itself — once the controller has responded, never if you choose *Continue without a controller*.
 
 ## If the app crashed last time
 
-If a session ended with the dead zone still active — a crash, a forced shutdown, a power outage — on the
+If a session ended with the deadzone still active — a crash, a forced shutdown, a power outage — on the
 next launch the app detects it automatically, makes the controller visible again **and restarts it**, the
-same as pressing the *Restart joystick* button. Without that step the pad would be unresponsive until
+same as pressing the *Restart controller* button. Without that step the pad would be unresponsive until
 unplugged. The app reports this with a message when it happens.
 
 ## Sections
 
 ### Deadzone
 
-For each stick (left and right, or linked with the same setup):
+For each stick (left and right, or linked with the same setup with the **Same settings for both sticks** switch, just above the two sticks):
 
-The **inner** dead zone and the **outer limit** are chosen separately. The inner zone has two shapes, from
-the *Inner dead zone shape* dropdown:
+The **inner** deadzone and the **outer limit** are chosen separately. The inner zone has two shapes, from
+the *Inner deadzone shape* dropdown:
 
 - **Cross** (default): each axis has its own threshold and is rescaled independently, so near center the
   stick snaps to the X/Y axes. This is what drivers and games have always done.
@@ -75,8 +75,8 @@ The shapes below instead change the **outer limit**.
 | **Circle** | Circular outer limit: the maximum output is a circle. |
 | **Square** | Projected onto a square: at full diagonal both axes reach 100% (X = Y = 1). |
 
-The **Dead zone for games** section has two buttons: **Enable dead zone** and **Restart joystick** (the
-latter with a border and text in the theme's secondary color, to distinguish it from the main action).
+The **Deadzone in games** card has two buttons: **Enable deadzone** and **Restart controller** (the
+latter with a border and text in the theme's secondary color, to tell it apart from the main action).
 The device to hide from games is chosen **automatically**, by matching the vendor and product ID of the
 controller the app is reading against the devices listed by HidHide.
 
@@ -92,16 +92,17 @@ does the same), and it avoids problems like Rocket League ignoring a DualSense. 
 button symbols in games that support them, choose **DualSense**. Your choice is remembered for each controller, so you
 don't have to pick it again next time.
 
-**To apply dead zones to games (Windows):**
+**To apply deadzones to games (Windows):**
 
 1. Install [HidHide](https://github.com/nefarius/HidHide/releases) (once, requires a restart).
 2. Open CTRLSuite and accept the administrator permission prompt.
 3. In the Deadzone section, press a button on the physical controller to detect it, choose what to emulate
-   (Xbox 360 or DualSense), and press **Enable dead zone** (or use the tray menu — or let it start by itself, see *Customize*).
-4. In the game, set the dead zone to 0 and let the app handle it.
+   (Xbox 360 or DualSense), and press **Enable deadzone** (or use the tray menu — or let it start by itself, see *Customize*).
+4. In the game, set the deadzone to 0 and let the app handle it.
 
 Profiles are saved automatically and can be created, renamed, deleted, exported, and imported
-(`.ctrlsuite.json`; files exported by earlier versions still import).
+(`.ctrlsuite.json`; files exported by earlier versions still import). You can also switch profile from the tray icon's
+menu (see [Tray](#tray)).
 
 ### Controller test
 
@@ -111,15 +112,15 @@ controller read by the Gamepad API: Xbox One/Series/Elite, DualShock 4, DualSens
 - **Sticks and circularity**: trace of the reached edge and average error relative to a perfect circle.
 - **Buttons and triggers**: names based on controller type (Xbox, PlayStation, Nintendo), count of already
   tested buttons, analog trigger values, raw values for all axes and buttons.
-- **Rumble**: strong/weak motors with adjustable duration and, where the controller supports it (Xbox
+- **Vibration**: strong/weak motors with adjustable duration and, where the controller supports it (Xbox
   One/Series on Windows), trigger vibration.
 - **Stick resolution**: minimum step between two axis values and estimated number of levels (e.g. 256 = 8 bit).
 - **Update rate**: current, maximum, and average frequency, average interval and jitter — via Gamepad API
   (limited by the browser to roughly 250 Hz) or via HID, reading device reports directly.
 
-With the dead zone active the controller is hidden from the Gamepad API: the section still follows it,
-reading it via HID (the header indicates this). Only **rumble** and the *Gamepad API* frequency
-measurement require the dead zone to be off — use *Measure via HID* as an alternative for the update rate.
+With the deadzone active the controller is hidden from the Gamepad API: the section still follows it,
+reading it via HID (the header indicates this). Only **vibration** and the *Measure (Gamepad API)* button
+require the deadzone to be off — use *Measure over HID (precise)* as an alternative for the update rate.
 
 ### LED Lights
 
@@ -178,7 +179,7 @@ Raises the frequency at which Windows reads the USB controller (polling) using
 [HIDUSBF](https://github.com/LordOfMice/hidusbf) by SweetLow.
 
 > **The HIDUSBF driver is not included in the app.** The section shows **Download the driver**, which
-> opens the page to get it from, and **Select folder…**, which asks where it was extracted. The app
+> opens the page to get it from, and **Choose the folder…**, which asks where it was extracted. The app
 > recognizes the official archive structure and copies the right files automatically — you don't need to
 > place them manually. Files it can't place with certainty are left alone: installing the wrong version
 > is worse than not finding it.
@@ -190,7 +191,7 @@ Two driver variants:
   **Windows Memory Integrity disabled**, otherwise the driver won't load.
 
 How to use: install the driver once (requires running as administrator), then select your target frequency
-and press **Apply**. The app restarts the device and the **Measured frequency** counter shows actual reads
+and press **Apply**. The app restarts the device and the **Measured rate** counter shows actual reads
 per second when you move a stick. If the requested frequency isn't reached, the app says so and notes the
 actually measured value next to the controller (e.g. *measured 1000 Hz*).
 
@@ -206,7 +207,7 @@ Open from the sidebar or from **Edit → Customize…** (`Ctrl+,`, `Cmd+,` on ma
 the **Startup** option, **Updates**, and **About and licenses**.
 
 **Language.** The app starts in **English** and can be switched to **Italian** from the *Language* menu.
-The choice applies immediately, **without restarting**.
+The choice applies immediately, **without restarting**, and the tray menu follows it too.
 
 **Theme.** A theme is made of **three colors**: background, primary, and secondary. Everything else —
 panels, borders, grids, dimmed text, transparencies, hover tints — is derived from those three
@@ -219,19 +220,19 @@ Editing a built-in theme shows a live preview without altering it — **Save as 
 and it can be renamed, modified (changes save automatically), and deleted. The theme also applies to the
 PlayStation Calibration section.
 
-**Startup.** The **Enable the deadzone at startup** checkbox is off by default. When it is on, the dead zone
+**Startup.** The **Enable the deadzone at startup** checkbox is off by default. When it is on, the deadzone
 switches itself on as soon as the controller is recognized — you open the app, move a stick, and you're set. You can
-still adjust the dead zone live while it's on.
+still adjust the deadzone live while it's on.
 
 - It only happens if the controller is confirmed (a button pressed or a stick moved), **not** if you choose
-  *Continue without controller*, and only **once per launch**: if you switch it off, it doesn't come back on its own.
-- It needs the same things as the *Enable dead zone* button: Windows, HidHide installed, and the app run as
-  administrator. If something is missing, or the app can't be sure which device to hide from games, a notice says so
+  *Continue without a controller*, and only **once per launch**: if you switch it off, it doesn't come back on its own.
+- It needs the same things as the *Enable deadzone* button: Windows, HidHide installed, and the app running as
+  administrator (it asks for that itself when it opens). If something is missing, or the app can't be sure which device to hide from games, a notice says so
   and nothing is switched on.
-- With a PlayStation controller, the very first time you have to press **Enable dead zone** yourself: reading the
+- With a PlayStation controller, the very first time you have to press **Enable deadzone** yourself: reading the
   pad directly needs a permission granted with a click. From the next launch on, the automatic start works.
 - The virtual controller is an Xbox 360 pad by default, which games handle best, so it works even when the game
-  opens with the dead zone already on. If you switch **Emulate** to *DualSense*, a game that doesn't know it (Rocket
+  opens with the deadzone already on. If you switch **Emulate** to *DualSense*, a game that doesn't know it (Rocket
   League) may ignore it.
 
 **Updates.** At every start CTRLSuite looks online for a newer version (untick *Check for updates at startup* to stop
@@ -247,15 +248,20 @@ data. **It never downloads or installs anything without your yes**:
 ## Tray
 
 The **X closes the app**, with the usual cleanup (virtual controller removed and device visible again). To
-keep applying the dead zone while gaming, use the **first button in the title bar**, which hides the window
+keep applying the deadzone while gaming, use the **first button in the title bar**, which hides the window
 to the notification area (menu bar on macOS) instead of closing it, while **Minimize** sends it to the
 taskbar.
 
-Right-clicking the tray icon gives you: *Open CTRLSuite*, *Enable/Disable dead zone*, *Select dead zone*
-(Default / Default + / Circle / Square, applied to both sticks of the active profile), and
+Right-clicking the tray icon gives you: *Open CTRLSuite*, *Enable/Disable deadzone*, *Profiles*, and
 *Close CTRLSuite*.
 
-The icon is **colored in the theme colors** when the dead zone is active (body in secondary color, buttons
+*Profiles* lists the **five profiles you used most recently**, the latest first, with the active one ticked; pick one
+and it becomes the active profile at once, even while the deadzone is running. It never lists them all, so it stays
+usable however many profiles you have: when there are more, the last entry is *More profiles…*, which opens the
+window, where they all are. The menu, its tooltip and the notification you get the first time the window goes to the
+tray are in the language you chose in the app.
+
+The icon is **colored in the theme colors** when the deadzone is active (body in secondary color, buttons
 in primary) and **light gray** when it's off. *Close CTRLSuite* hides the window and icon immediately, then
 removes the virtual controller and makes the hidden device visible again before fully exiting — this usually
 takes less than a second.
