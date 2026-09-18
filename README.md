@@ -3,10 +3,27 @@
 Standalone desktop app (Electron, macOS and Windows) that gives you the same control over your controller
 that is usually reserved for drivers: dead zones, LEDs, calibration, polling rate.
 
+## Installing
+
+CTRLSuite for Windows comes in two forms — pick either:
+
+- **Installer** (`CTRLSuite-Setup-<version>.exe`) — recommended. Installs the app with Start menu and desktop
+  shortcuts and an uninstaller, and it can update itself.
+- **Zip** (`CTRLSuite-<version>-win.zip`) — no installer: extract the folder anywhere and run `CTRLSuite.exe`. It
+  tells you when a new version exists, but updating means downloading the zip again.
+
+Both do exactly the same thing. Your profiles and settings are kept apart from the program, so you can switch from one
+to the other, or update, without losing them.
+
+> **Windows may warn you the first time** ("Windows protected your PC"): the app isn't code-signed yet. Click
+> **More info → Run anyway**.
+
+> **CTRLSuite asks for administrator permission every time it opens** (a Windows permission prompt). Accept it:
+> HidHide and HIDMaestro (the virtual controller driver), which apply the dead zone to games, both need it.
+
 ## What you need to download separately
 
-CTRLSuite itself requires no installation — just extract and run. Two features depend on third-party tools
-you install once:
+Two features depend on third-party tools you install once:
 
 **[HidHide](https://github.com/nefarius/HidHide/releases)** is required to apply dead zones to games.
 It hides the physical controller from all other apps so games only see the corrected virtual one.
@@ -14,9 +31,6 @@ Requires a restart after install.
 
 **HIDUSBF** is required only for the Overclock section. The app will walk you through downloading it and
 pointing it to the right folder — you don't install it manually. The download link is inside the app.
-
-> On Windows, run `CTRLSuite.exe` **as administrator** whenever you use the dead zone in games.
-> HidHide and HIDMaestro (the virtual controller driver) both require elevated permissions.
 
 ## Welcome screen
 
@@ -27,6 +41,9 @@ by its connected devices. That's why a button press is needed before the app can
 As soon as the controller responds, the screen disappears. After **2 seconds**, *Continue without
 controller* also appears — the app works fully without one (sticks can be simulated by dragging inside the
 stick map with the mouse, and themes, licenses, and overclock don't need a controller).
+
+If you turn on **Enable the deadzone at startup** in *Customize*, this is also the moment the dead zone switches on
+by itself — once the controller has responded, never if you choose *Continue without controller*.
 
 ## If the app crashed last time
 
@@ -54,7 +71,7 @@ The shapes below instead change the **outer limit**.
 | Shape | Behavior |
 | --- | --- |
 | **Default** | Outer limit per axis: each axis reaches 100% on its own. |
-| **Default +** | Square outer limit with adjustable corner rounding: **Corners** at 100% = full square, 0% = circle. |
+| **Default +** | Square outer limit with adjustable corner rounding: **Corners** at 100% = full square, 0% = circle. Recommended: **15–25%**. |
 | **Circle** | Circular outer limit: the maximum output is a circle. |
 | **Square** | Projected onto a square: at full diagonal both axes reach 100% (X = Y = 1). |
 
@@ -76,13 +93,13 @@ stops deciding for you.
 **To apply dead zones to games (Windows):**
 
 1. Install [HidHide](https://github.com/nefarius/HidHide/releases) (once, requires a restart).
-2. Run `CTRLSuite.exe` as administrator.
+2. Open CTRLSuite and accept the administrator permission prompt.
 3. In the Deadzone section, press a button on the physical controller to detect it, choose what to emulate
-   (Xbox 360 or DualSense), and press **Enable dead zone** (or use the tray menu).
+   (Xbox 360 or DualSense), and press **Enable dead zone** (or use the tray menu — or let it start by itself, see *Customize*).
 4. In the game, set the dead zone to 0 and let the app handle it.
 
 Profiles are saved automatically and can be created, renamed, deleted, exported, and imported
-(`.deadzone.json`).
+(`.ctrlsuite.json`; files exported by earlier versions still import).
 
 ### Controller test
 
@@ -183,7 +200,8 @@ rescan it from Device Manager.
 
 ### Customize
 
-Open from the sidebar or from **Edit → Customize…** (`Ctrl+,`, `Cmd+,` on macOS).
+Open from the sidebar or from **Edit → Customize…** (`Ctrl+,`, `Cmd+,` on macOS). It has the language and theme,
+the **Startup** option, **Updates**, and **About and licenses**.
 
 **Language.** The app starts in **English** and can be switched to **Italian** from the *Language* menu.
 The choice applies immediately, **without restarting**.
@@ -198,6 +216,31 @@ Two built-in read-only themes are included: **Default** and **Neon** (`#00FFFF` 
 Editing a built-in theme shows a live preview without altering it — **Save as theme** makes it your own,
 and it can be renamed, modified (changes save automatically), and deleted. The theme also applies to the
 PlayStation Calibration section.
+
+**Startup.** The **Enable the deadzone at startup** checkbox is off by default. When it is on, the dead zone
+switches itself on as soon as the controller is recognized — you open the app, move a stick, and you're set. You can
+still adjust the dead zone live while it's on.
+
+- It only happens if the controller is confirmed (a button pressed or a stick moved), **not** if you choose
+  *Continue without controller*, and only **once per launch**: if you switch it off, it doesn't come back on its own.
+- It needs the same things as the *Enable dead zone* button: Windows, HidHide installed, and the app run as
+  administrator. If something is missing, or the app can't be sure which device to hide from games, a notice says so
+  and nothing is switched on.
+- With a PlayStation controller, the very first time you have to press **Enable dead zone** yourself: reading the
+  pad directly needs a permission granted with a click. From the next launch on, the automatic start works.
+- A game that starts while the dead zone is already on may not receive any input (seen in Rocket League). With this
+  option that is the normal case, because the dead zone is on before you open the game. If it happens, just restart
+  the game.
+
+**Updates.** At every start CTRLSuite looks online for a newer version (untick *Check for updates at startup* to stop
+that; *Check for updates now* looks on demand). That is the only network connection it makes, and it sends no personal
+data. **It never downloads or installs anything without your yes**:
+
+- With the **installer** version, yes downloads the update and installs it by itself — the app closes and reopens in the
+  new version.
+- With the **zip** version, yes opens the download page: get the new zip and extract it over the old one, or install with
+  the installer.
+- *Cancel* means "not now": you'll be asked again the next time you open the app.
 
 ## Tray
 
