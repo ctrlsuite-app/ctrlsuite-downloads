@@ -74,7 +74,7 @@ The shapes below instead change the **outer limit**.
 | **Default +** | Square outer limit with adjustable corner rounding: **Corners** at 100% = full square, 0% = circle. Recommended: **15–25%**. |
 | **Circle** | Circular outer limit: the maximum output is a circle. |
 | **Square** | Projected onto a square: at full diagonal both axes reach 100% (X = Y = 1). |
-| **Limit** *(in testing)* | Not a deadzone: nothing changes inside the circle, and a stick pushed past it is held on the edge. A software fix for a stick whose gate is not quite round. Leave **Circular limit** at 100%: it cuts only what goes past full deflection. |
+| **Limit** *(in testing)* | Not a deadzone: the input goes through unchanged, and the stick may run past the circle up to the **Outer tolerance** (recommended: **10–15%**); beyond that it is held on the edge of a square with rounded corners. A software fix for a stick whose gate is not quite round. |
 
 The **Deadzone in games** card has two buttons: **Enable deadzone** and **Restart controller** (the
 latter with a border and text in the theme's secondary color, to tell it apart from the main action).
