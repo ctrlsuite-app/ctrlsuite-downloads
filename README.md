@@ -74,6 +74,7 @@ The shapes below instead change the **outer limit**.
 | **Default +** | Square outer limit with adjustable corner rounding: **Corners** at 100% = full square, 0% = circle. Recommended: **15–25%**. |
 | **Circle** | Circular outer limit: the maximum output is a circle. |
 | **Square** | Projected onto a square: at full diagonal both axes reach 100% (X = Y = 1). |
+| **Limit** *(in testing)* | Not a deadzone: nothing changes inside the circle, and a stick pushed past it is held on the edge. A software fix for a stick whose gate is not quite round. Leave **Circular limit** at 100%: it cuts only what goes past full deflection. |
 
 The **Deadzone in games** card has two buttons: **Enable deadzone** and **Restart controller** (the
 latter with a border and text in the theme's secondary color, to tell it apart from the main action).
@@ -240,7 +241,8 @@ that; *Check for updates now* looks on demand). That is the only network connect
 data. **It never downloads or installs anything without your yes**:
 
 - With the **installer** version, yes downloads the update and installs it by itself — the app closes and reopens in the
-  new version.
+  new version. If the deadzone is running it is switched off first, the same way its own button does it, so your
+  controller is ready again afterwards.
 - With the **zip** version, yes opens the download page: get the new zip and extract it over the old one, or install with
   the installer.
 - *Cancel* means "not now": you'll be asked again the next time you open the app.
