@@ -42,7 +42,7 @@ As soon as the controller responds, the screen disappears. After **2 seconds**, 
 controller* also appears — the app works fully without one (sticks can be simulated by dragging inside the
 stick map with the mouse, and themes, licenses, and overclock don't need a controller).
 
-If you turn on **Enable the deadzone at startup** in *Customize*, this is also the moment the deadzone switches on
+If you turn on **Enable the deadzone at startup** in *Settings*, this is also the moment the deadzone switches on
 by itself — once the controller has responded, never if you choose *Continue without a controller*.
 
 ## If the app crashed last time
@@ -56,9 +56,20 @@ unplugged. The app reports this with a message when it happens.
 
 ### Deadzone
 
-For each stick (left and right, or linked with the same setup with the **Same settings for both sticks** switch, just above the two sticks):
+Each stick (left and right) has its own **Custom deadzone** switch, in the header of its card:
 
-The **inner** deadzone and the **outer limit** are chosen separately. The inner zone has two shapes, from
+- **Off** (how a new stick starts): the stick is **not filtered at all** — the input goes through raw, with no deadzone
+  and no shape — and there is nothing to choose. The card shows only the map, the readout and the curve, greyed like a
+  disabled control so that it reads as inactive at a glance.
+- **On**: the stick gets the shape and the values chosen below. Switching it off again keeps them, so switching it on
+  gets them back.
+
+The **Same settings for both sticks** switch, just above the two sticks, links them: whatever you set on one applies to
+the other, turning the custom deadzone on or off included. If you switch it on while the custom deadzone is on for one
+stick and off for the other, the one that is on is used for both.
+
+The **inner** deadzone and the **outer limit** are chosen separately. The inner deadzone has a switch of its own and starts
+off (most people do not need it); switched on, its shape and size appear. The inner zone has two shapes, from
 the *Inner deadzone shape* dropdown:
 
 - **Cross** (default): each axis has its own threshold and is rescaled independently, so near center the
@@ -66,15 +77,23 @@ the *Inner deadzone shape* dropdown:
 - **Round**: only the distance from center matters and the direction stays intact, with no axis snapping.
   Useful for those who want clean diagonals even with a barely-moved stick.
 
-The shapes below instead change the **outer limit**.
+The shapes below instead change the **outer limit**. The old **Default** shape is not one of the choices any more:
+a stick with the switch off is not filtered at all. A profile saved with it comes back with the switch **off**, so its
+input is now raw, and the values it had are kept for when it is switched on.
 
 | Shape | Behavior |
 | --- | --- |
-| **Default** | Outer limit per axis: each axis reaches 100% on its own. |
 | **Default +** | Square outer limit with adjustable corner rounding: **Corners** at 100% = full square, 0% = circle. Recommended: **15–25%**. |
 | **Circle** | Circular outer limit: the maximum output is a circle. |
 | **Square** | Projected onto a square: at full diagonal both axes reach 100% (X = Y = 1). |
-| **Limit** *(in testing)* | Not a deadzone: the input goes through unchanged, and the stick may run past the circle up to the **Outer tolerance** (recommended: **10–15%**); beyond that it is held on the edge of a square with rounded corners. A software fix for a stick whose gate is not quite round. |
+| **Limit** *(in testing)* | Past the inner deadzone (the same one the other shapes have) the input goes through unchanged, and the stick may run past the circle up to the **Outer tolerance** (recommended: **10–15%**); beyond that it is held on the edge of a square with rounded corners; the map tints what lies past that edge. A software fix for a stick whose gate is not quite round. |
+
+Each stick also has a **Response curve** switch, off to begin with: switched on, it lets you choose how the output grows with
+the deflection — **Linear** (as it comes), **Exponential** (finer near the centre), **Sinusoidal** (soft at the centre and
+near the edge) or **Custom**, which you draw: drag the points, click in the empty to add one, double-click a point to remove it
+(the *Start from a curve…* menu gives you a linear, exponential, sinusoidal or ease-out curve to bend). The direction is never
+touched and full deflection is still full. The drawn line is part of the profile, so exporting a profile exports it too.
+The chart under the map shows the result as you change it. The custom editor works with the mouse (or touch), not yet with the keyboard.
 
 The **Deadzone in games** card has two buttons: **Enable deadzone** and **Restart controller** (the
 latter with a border and text in the theme's secondary color, to tell it apart from the main action).
@@ -98,12 +117,18 @@ don't have to pick it again next time.
 1. Install [HidHide](https://github.com/nefarius/HidHide/releases) (once, requires a restart).
 2. Open CTRLSuite and accept the administrator permission prompt.
 3. In the Deadzone section, press a button on the physical controller to detect it, choose what to emulate
-   (Xbox 360 or DualSense), and press **Enable deadzone** (or use the tray menu — or let it start by itself, see *Customize*).
+   (Xbox 360 or DualSense), and press **Enable deadzone** (or use the tray menu — or let it start by itself, see *Settings*).
 4. In the game, set the deadzone to 0 and let the app handle it.
 
-Profiles are saved automatically and can be created, renamed, deleted, exported, and imported
+Editing a profile does **not** write over it. What you change is a working copy: the profile's name gets a **star** and three
+buttons appear next to its menu — **Save** (into the profile), **Save as new** (a new profile; the one you started from stays as it was) and **Restore** (throws the changes away).
+Something that would take the changes away — picking another profile, importing one, closing the app — asks first. The
+working copy is kept on disk as you edit: after a crash or a power cut, the next start says what was left unsaved and asks
+whether to update the profile, create a new one or discard it. Themes work the same way, and on their own: changing the theme never asks about the deadzone profile, and choosing another profile never asks about the theme (only closing the app is about both).
+
+Profiles can be created, renamed, deleted, exported, and imported
 (`.ctrlsuite.json`; files exported by earlier versions still import). You can also switch profile from the tray icon's
-menu (see [Tray](#tray)).
+menu (see [Tray](#tray)). *New* buttons are green, buttons that delete or remove are red, and buttons that apply something (*Apply now*, *Apply*) are blue.
 
 ### Controller test
 
@@ -157,7 +182,7 @@ Features beyond the original site:
   calibrations are not duplicated.
 - **25 calibrations** are kept per controller instead of 10.
 - If your controller was already authorized elsewhere in the app, the Connect step is skipped automatically.
-- The language follows the app — changing it in *Customize* also changes it here, without reopening the
+- The language follows the app — changing it in *Settings* also changes it here, without reopening the
   section.
 - Fix: saving a calibration restored from history no longer creates a copy with the current date; the
   original remains, moved to the top and marked *Current* only once.
@@ -202,9 +227,9 @@ rescan it from Device Manager.
 
 > This section has not yet been tested on real Windows hardware.
 
-### Customize
+### Settings
 
-Open from the sidebar or from **Edit → Customize…** (`Ctrl+,`, `Cmd+,` on macOS). It has the language and theme,
+Open from the sidebar or from **Edit → Settings…** (`Ctrl+,`, `Cmd+,` on macOS). It has the language and theme,
 the **Startup** option, **Updates**, and **About and licenses**.
 
 **Language.** The app starts in **English** and can be switched to **Italian** from the *Language* menu.
@@ -217,9 +242,9 @@ picks the more legible between light and dark, but can be forced with *Button te
 aesthetic.
 
 Two built-in read-only themes are included: **Default** and **Neon** (`#00FFFF` and `#FF00FF` on black).
-Editing a built-in theme shows a live preview without altering it — **Save as theme** makes it your own,
-and it can be renamed, modified (changes save automatically), and deleted. The theme also applies to the
-PlayStation Calibration section.
+Changing the colors shows a live preview but does not write over the theme: the name gets a star and **Save** / **Save as new**
+appear. **Save** writes into a theme of your own; a built-in theme is never modified, so for it there is only **Save as new**.
+Your own themes can be renamed and deleted. The theme also applies to the PlayStation Calibration section.
 
 **Startup.** The **Enable the deadzone at startup** checkbox is off by default. When it is on, the deadzone
 switches itself on as soon as the controller is recognized — you open the app, move a stick, and you're set. You can
