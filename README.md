@@ -176,8 +176,9 @@ Supports DualShock 4 v1/v2, DualSense, DualSense Edge, and PS VR2.
 
 Features beyond the original site:
 
-- Each calibration entry can have a **name** (prompted when saving to the controller, changeable with
-  *Rename*).
+- Each calibration entry can have a **name**. It is asked for before saving to the controller, so *Cancel* really stops the
+  save; a calibration that is already in the history (for example one you just restored) is saved without asking. The name
+  can be changed later with *Rename*.
 - The entire calibration history can be **exported** to a JSON file and **imported** back — existing
   calibrations are not duplicated.
 - **25 calibrations** are kept per controller instead of 10.
