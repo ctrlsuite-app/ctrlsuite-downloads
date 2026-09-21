@@ -178,7 +178,8 @@ Features beyond the original site:
 
 - Each calibration entry can have a **name**. It is asked for before saving to the controller, so *Cancel* really stops the
   save; a calibration that is already in the history (for example one you just restored) is saved without asking. The name
-  can be changed later with *Rename*.
+  can be changed later with *Rename*. Questions and names appear in the app's own dialog (not a system window):
+  **Enter** confirms and saves the name, **Esc** cancels, and a deletion starts with *Cancel* selected.
 - The entire calibration history can be **exported** to a JSON file and **imported** back — existing
   calibrations are not duplicated.
 - **25 calibrations** are kept per controller instead of 10.
