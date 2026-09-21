@@ -180,6 +180,11 @@ Features beyond the original site:
   save; a calibration that is already in the history (for example one you just restored) is saved without asking. The name
   can be changed later with *Rename*. Questions and names appear in the app's own dialog (not a system window):
   **Enter** confirms and saves the name, **Esc** cancels, and a deletion starts with *Cancel* selected.
+- **If the calibration in the controller is not the one the app last knew** (for example you calibrated with another tool), or
+  it is the same but you deleted it from the history, the app tells you when you connect a DualSense or DualSense Edge and
+  lets you **Save** it with a name, **Restore another** calibration (the current one is kept in the history first) or
+  **Ignore** it (it is not added to the history, and you are not asked again). Nothing is asked if it is the same as before
+  and it is in the history.
 - The entire calibration history can be **exported** to a JSON file and **imported** back — existing
   calibrations are not duplicated.
 - **25 calibrations** are kept per controller instead of 10.
