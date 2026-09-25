@@ -52,6 +52,10 @@ next launch the app detects it automatically, makes the controller visible again
 same as pressing the *Restart controller* button. Without that step the pad would be unresponsive until
 unplugged. The app reports this with a message when it happens.
 
+Closing CTRLSuite with the deadzone on no longer leaves the controller unresponsive either. Shutting Windows down or restarting it is handled too: the app makes the controller visible again as Windows
+ends the session, so the next start doesn't begin with a hidden controller. Turn on **Start CTRLSuite with
+Windows** (*Settings → Startup*) and the app is also back by itself the moment you sign in.
+
 ## Sections
 
 ### Deadzone
@@ -253,7 +257,12 @@ Changing the colors shows a live preview but does not write over the theme: the 
 appear. **Save** writes into a theme of your own; a built-in theme is never modified, so for it there is only **Save as new**.
 Your own themes can be renamed and deleted. The theme also applies to the PlayStation Calibration section.
 
-**Startup.** The **Enable the deadzone at startup** checkbox is off by default. When it is on, the deadzone
+**Startup.** **Start CTRLSuite with Windows** (Windows only) opens the app by itself when you sign in, in the notification
+area, with the administrator permission it needs and without asking you every time. (A shortcut in Windows' own Startup folder
+doesn't work for this app: Windows silently skips programs that need administrator rights there.) Open the app from the
+tray whenever you like. If you uninstall CTRLSuite, untick it first.
+
+The **Enable the deadzone at startup** checkbox is off by default. When it is on, the deadzone
 switches itself on as soon as the controller is recognized — you open the app, move a stick, and you're set. You can
 still adjust the deadzone live while it's on.
 
